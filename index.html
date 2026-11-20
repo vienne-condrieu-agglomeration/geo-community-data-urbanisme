@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Données d'urbanisme</title>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
+    code { background: rgba(127, 127, 127, .15); padding: .1em .3em; border-radius: 3px; }
+    pre { background: rgba(127, 127, 127, .15); padding: .75rem 1rem; border-radius: 3px; overflow-x: auto; }
+    pre code { background: none; padding: 0; }
+  </style>
+</head>
+<body>
+  <h1>Données d'urbanisme : notice parcellaire</h1>
+  <p>
+    Ce que l'urbanisme dit de chaque parcelle du territoire de Vienne Condrieu Agglomération : zones du document
+    d'urbanisme, prescriptions, informations, servitudes d'utilité publique, droit de préemption urbain, SCOT et
+    lieu-dit. <strong>Un fichier JSON par section cadastrale</strong>, lu par les modules GEO.
+  </p>
+
+  <h2>Organisation des fichiers</h2>
+<pre><code>index.json                  format, date de l'export, documents sources, sections publiées
+&lt;code INSEE&gt;/&lt;section&gt;.json   ex. 38087/AB.json</code></pre>
+  <p>
+    Le fichier <a href="index.json"><code>index.json</code></a> se lit en premier : un module doit vérifier le champ
+    <code>format</code> et refuser une version qu'il ne connaît pas. Chaque fichier de section est un objet dont les clés
+    sont les <strong>identifiants de parcelle (IDU) de 14 caractères</strong> ; chaque parcelle porte ses zones, et chaque zone
+    ses surfaces, son pourcentage et les objets qui s'y appliquent.
+  </p>
+
+  <h2>Sources et licence</h2>
+  <p>
+    Documents d'urbanisme et servitudes du
+    <a href="https://www.geoportail-urbanisme.gouv.fr/">Géoportail de l'Urbanisme</a>, parcellaire et lieux-dits du
+    <a href="https://cadastre.data.gouv.fr/">cadastre</a> (PCI vecteur), croisés par l'agglomération. Seules des données
+    publiques sont publiées : <strong>aucune donnée nominative, aucun propriétaire</strong>. Les documents d'urbanisme
+    utilisés pour chaque commune sont listés dans <code>index.json</code>.
+  </p>
+
+  <h2>Limites</h2>
+  <ul>
+    <li>Les surfaces sont celles des intersections calculées entre la parcelle et chaque couche. Une intersection n'est
+      retenue qu'au-delà de 1&nbsp;m² ou de 0,1&nbsp;% de la parcelle.</li>
+    <li>Les données suivent la publication du Géoportail au moment de l'export (date dans <code>index.json</code>) : elles
+      ne remplacent pas la consultation du document d'urbanisme opposable.</li>
+  </ul>
+
+  <h2>Projet</h2>
+  <p>Projet communautaire indépendant, non affilié à Business Geografic.</p>
+</body>
+</html>
